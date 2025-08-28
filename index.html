@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fullscreen Lock Demo</title>
+  <title>Security Alert</title>
   <style>
     body {
       margin: 0;
@@ -11,47 +11,43 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: white;
-      font-size: 3em;
+      color: red;
+      font-size: 2em;
       font-family: Arial, sans-serif;
-      text-transform: uppercase;
       text-align: center;
+    }
+    #message {
+      max-width: 700px;
     }
   </style>
 </head>
 <body>
-  <div>CAN YOU HEAR THE MUSIC</div>
+  <div id="message">
+    ⚠️ SECURITY ALERT ⚠️<br><br>
+    Your computer has been locked.<br>
+    Do not turn off your PC.<br>
+    Call Support: <strong>+1-800-FAKE-NUM</strong>
+  </div>
 
-  <audio id="bg-music" loop>
-    <!-- Replace this with any mp3 you want -->
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <audio autoplay loop>
+    <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
   </audio>
 
   <script>
-    // Go fullscreen on first click
-    function goFull() {
-      document.documentElement.requestFullscreen().catch(()=>{});
+    // Fullscreen attempt
+    document.documentElement.requestFullscreen().catch(()=>{});
+
+    // Popup loop
+    function scareLoop() {
+      alert("WARNING: Your computer may be infected!\n\nCall +1-800-FAKE-NUM immediately!");
+      setTimeout(scareLoop, 500);
     }
-    document.body.addEventListener("click", goFull);
+    setTimeout(scareLoop, 1500);
 
-    // Annoyance loop
-    function annoyanceLoop() {
-      let proceed = confirm("CAN YOU HEAR THE MUSIC?");
-      if (proceed) {
-        // Play music
-        let audio = document.getElementById("bg-music");
-        audio.play().catch(()=>{});
-
-        // Redirect to a link
-        window.location.href = "https://GEARMUN.in"; // <-- change this link
-      } else {
-        // Keep asking until user says OK
-        setTimeout(annoyanceLoop, 200);
-      }
-    }
-
-    // Start loop after short delay
-    setTimeout(annoyanceLoop, 1000);
+    // Trap if they try to close
+    window.onbeforeunload = function() {
+      return "WARNING: Closing this window may result in data loss!";
+    };
   </script>
 </body>
 </html>

